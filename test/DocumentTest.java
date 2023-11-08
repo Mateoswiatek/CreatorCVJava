@@ -58,7 +58,7 @@ class DocumentTest {
         document.setTitle("Test Document");
         document.setPhoto("https://example.com/photo.jpg");
         Section section = document.addSection("Test Section");
-        section.addParagraph("This is a test paragraph.");
+        section.add("This is a test .");
 
         document.writeHTML(new PrintStream(outputStream));
         String result = outputStream.toString();
@@ -67,7 +67,7 @@ class DocumentTest {
         assertTrue(result.contains("<title>Test Document</title>"));
         assertTrue(result.contains("<img src=\"https://example.com/photo.jpg\" alt=\"Smiley face\" height=\"420\" width=\"420\"/>"));
         assertTrue(result.contains("<h1>Test Section</h1>"));
-        assertTrue(result.contains("<p>This is a test paragraph.</p>"));
+        assertTrue(result.contains("<p>This is a test .</p>"));
 
         // More general tests, just tags
         assertTrue(result.contains("<title"));

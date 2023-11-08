@@ -2,7 +2,7 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ParagraphWithList extends Parahraph{
+public class ParagraphWithList extends Paragraph{
 
     UnorederedList unorederedList = new UnorederedList();
 

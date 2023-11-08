@@ -6,7 +6,7 @@ public class Section {
 
     String title;
 
-    List<Parahraph> parahraphList = new ArrayList<>();
+    List<Paragraph> ParagraphList = new ArrayList<>();
 
     public Section(String title){
         this.title = title;
@@ -18,18 +18,18 @@ public class Section {
     }
 
     public Section addParagraph(String paragraphTitle){
-        this.parahraphList.add(new Parahraph(paragraphTitle));
+        this.ParagraphList.add(new Paragraph(paragraphTitle));
         return this;
     }
 
-    public Section addParagraph(Parahraph p){
-        this.parahraphList.add(p);
+    public Section addParagraph(Paragraph p){
+        this.ParagraphList.add(p);
         return this;
     }
 
     public void writeHTML(PrintStream out) {
         out.printf("<h1>%s</h1>%n", title);
-        for (Parahraph p : parahraphList) {
+        for (Paragraph p : ParagraphList) {
             p.writeHTML(out);
         }
     }

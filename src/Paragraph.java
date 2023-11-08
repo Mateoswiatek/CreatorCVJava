@@ -1,14 +1,14 @@
 import java.io.PrintStream;
 
-public class Parahraph {
+public class Paragraph {
 
     String content;
 
-    public Parahraph(String title){
+    public Paragraph(String title){
         this.setContent(title);
     }
 
-    public Parahraph setContent(String content){
+    public Paragraph setContent(String content){
         this.content = content;
         return this;
     }
