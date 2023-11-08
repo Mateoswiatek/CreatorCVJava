@@ -1,6 +1,9 @@
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
+import com.google.gson.*;
+import com.google.gson.typeadapters.RuntimeTypeAdapterFactory;
+
 
 public class Document {
 
@@ -53,4 +56,26 @@ public class Document {
                 </body>
                 </html>""");
     }
+
+    String toJson() {
+        RuntimeTypeAdapterFactory<Paragraph> adapter =
+                RuntimeTypeAdapterFactory
+                        .of(Paragraph.class)
+                        .registerSubtype(Paragraph.class)
+                        .registerSubtype(ParagraphWithList.class);
+        Gson gson = new GsonBuilder().registerTypeAdapterFactory(adapter).setPrettyPrinting().create();
+        return gson.toJson(this);
+    }
+
+    public Document fromJson(String jsonString) {
+        RuntimeTypeAdapterFactory<Paragraph> adapter =
+                RuntimeTypeAdapterFactory
+                        .of(Paragraph.class)
+                        .registerSubtype(Paragraph.class)
+                        .registerSubtype(ParagraphWithList.class);
+
+        Gson gson = new GsonBuilder().registerTypeAdapterFactory(adapter).create();
+        return gson.fromJson(jsonString, Document.class);
+    }
+
 }

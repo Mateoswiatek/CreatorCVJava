@@ -35,5 +35,9 @@ public class Main {
 
         cv.writeHTML(System.out);
         cv.writeHTML(new PrintStream("cv.html","UTF-8"));
+
+        Document document = new Document("title").fromJson(cv.toJson());
+        document.writeHTML(System.out);
+        document.writeHTML(new PrintStream("document.html","UTF-8"));
     }
 }
