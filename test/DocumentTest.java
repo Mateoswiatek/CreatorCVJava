@@ -82,4 +82,56 @@ class DocumentTest {
         assertTrue(result.contains("<p"));
         assertTrue(result.contains("/p>"));
     }
+
+    @Test
+    public void testToJson() {
+        Document document = new Document("Test Document");
+        document.setPhoto("test-photo-url")
+                .addSection("Section 1")
+                .addParagraph("Paragraph 1")
+                .addParagraph("Paragraph 2");
+        document.addSection("Subsection 1")
+                .addParagraph(
+                        new ParagraphWithList().setContent("List Title")
+                            .addListItem("Item 1")
+                            .addListItem("Item 2")
+                );
+        document.addSection("Section 2")
+                .addParagraph("Paragraph 3");
+
+        String jsonString = document.toJson();
+
+        assertNotNull(jsonString);
+        assertTrue(jsonString.contains("Test Document"));
+        assertTrue(jsonString.contains("test-photo-url"));
+        assertTrue(jsonString.contains("Section 1"));
+        assertTrue(jsonString.contains("Section 2"));
+        assertTrue(jsonString.contains("Subsection 1"));
+        assertTrue(jsonString.contains("Paragraph 1"));
+        assertTrue(jsonString.contains("Paragraph 2"));
+        assertTrue(jsonString.contains("Paragraph 3"));
+        assertTrue(jsonString.contains("List Title"));
+        assertTrue(jsonString.contains("Item 1"));
+        assertTrue(jsonString.contains("Item 2"));
+    }
+
+    @Test
+    public void testFromJson() {
+
+        document.setTitle(testTitle);
+        document.setPhoto("https://example.com/photo.jpg");
+        Section section = document.addSection("Test Section");
+        section.addParagraph("This is a test paragraph.");
+        document.writeHTML(new PrintStream(outputStream));
+        String jsonString = document.toJson(); // nie powinno tak sie robic raczej ale jesli jest przetestowane ze dziala poprawnie.
+
+
+        Document document = new Document("tytul").fromJson(jsonString);
+
+        assertNotNull(document);
+        assertEquals(testTitle, document.title);
+        assertNotNull(document.photo);
+        assertFalse(document.sectionList.isEmpty());
+        assertFalse(document.sectionList.getFirst().ParagraphList.isEmpty()); // jest paragraf
+    }
 }
