@@ -1,4 +1,4 @@
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -12,7 +12,7 @@ class DocumentTest {
 
     private String testTitle;
 
-    @BeforeAll
+    @BeforeEach
     void setUp() {
         document = new Document("Test Document");
         outputStream = new ByteArrayOutputStream();
@@ -58,7 +58,7 @@ class DocumentTest {
         document.setTitle("Test Document");
         document.setPhoto("https://example.com/photo.jpg");
         Section section = document.addSection("Test Section");
-        section.add("This is a test .");
+        section.addParagraph("This is a test paragraph.");
 
         document.writeHTML(new PrintStream(outputStream));
         String result = outputStream.toString();
@@ -67,7 +67,7 @@ class DocumentTest {
         assertTrue(result.contains("<title>Test Document</title>"));
         assertTrue(result.contains("<img src=\"https://example.com/photo.jpg\" alt=\"Smiley face\" height=\"420\" width=\"420\"/>"));
         assertTrue(result.contains("<h1>Test Section</h1>"));
-        assertTrue(result.contains("<p>This is a test .</p>"));
+        assertTrue(result.contains("<p>This is a test paragraph.</p>"));
 
         // More general tests, just tags
         assertTrue(result.contains("<title"));
